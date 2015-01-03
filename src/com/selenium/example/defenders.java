@@ -25,13 +25,35 @@ public class defenders {
   @Test
   public void testScript() throws Exception {
     driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
+    
+    try { Thread.currentThread().sleep(2000); }
+    catch ( Exception e ) { }
+    
     new Select(driver.findElement(By.id("title"))).selectByVisibleText("Mr.");
+    
+    try { Thread.currentThread().sleep(2000); }
+    catch ( Exception e ) { }
+    
+    
     driver.findElement(By.id("fname")).clear();
     driver.findElement(By.id("fname")).sendKeys("Robert");
+
+    
+    try { Thread.currentThread().sleep(2000); }
+    catch ( Exception e ) { }
+        
     driver.findElement(By.id("lname")).clear();
     driver.findElement(By.id("lname")).sendKeys("Culliton");
+    
+    
+    try { Thread.currentThread().sleep(2000); }
+    catch ( Exception e ) { }
+    
   }
 
+  
+  
+  
   @After
   public void tearDown() throws Exception {
     driver.quit();
