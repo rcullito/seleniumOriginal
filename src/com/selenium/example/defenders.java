@@ -15,6 +15,11 @@ public class defenders {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  private void delay(int timeDelay) {
+    try { Thread.currentThread().sleep(timeDelay); }
+    catch ( Exception e ) { } 
+  }
+  
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -26,28 +31,24 @@ public class defenders {
   public void testScript() throws Exception {
     driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
     
-    try { Thread.currentThread().sleep(2000); }
-    catch ( Exception e ) { }
+    delay(2000);
     
     new Select(driver.findElement(By.id("title"))).selectByVisibleText("Mr.");
     
-    try { Thread.currentThread().sleep(2000); }
-    catch ( Exception e ) { }
+    delay(2000);
     
     
     driver.findElement(By.id("fname")).clear();
     driver.findElement(By.id("fname")).sendKeys("Robert");
 
     
-    try { Thread.currentThread().sleep(2000); }
-    catch ( Exception e ) { }
+    delay(2000);
         
     driver.findElement(By.id("lname")).clear();
     driver.findElement(By.id("lname")).sendKeys("Culliton");
     
     
-    try { Thread.currentThread().sleep(2000); }
-    catch ( Exception e ) { }
+    delay(2000);
     
   }
 
