@@ -1,10 +1,15 @@
 package com.selenium.example;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
 import org.junit.*;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -14,6 +19,18 @@ public class defenders {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  
+  
+  private void gatherWriterInfo(String fileName) throws Exception {
+		FileReader fr = new FileReader(fileName);
+		BufferedReader br = new BufferedReader(fr);
+		String s;
+		while((s = br.readLine()) != null) {
+		System.out.println(s);
+		}
+		fr.close();
+  }
+   
 
   private void delay(int timeDelay) {
     try { Thread.currentThread().sleep(timeDelay); }
@@ -29,6 +46,10 @@ public class defenders {
 
   @Test
   public void testScript() throws Exception {
+	   
+	  
+    gatherWriterInfo("WriterInfo");  
+	  
     driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
     
     delay(2000);
