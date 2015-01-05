@@ -14,6 +14,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.selenium.example.Writer;
+import com.selenium.example.LocalHelpers;
+
 public class defenders {
   private WebDriver driver;
   private String baseUrl;
@@ -30,12 +33,6 @@ public class defenders {
 		}
 		fr.close();
   }
-   
-
-  private void delay(int timeDelay) {
-    try { Thread.currentThread().sleep(timeDelay); }
-    catch ( Exception e ) { } 
-  }
   
   @Before
   public void setUp() throws Exception {
@@ -48,33 +45,33 @@ public class defenders {
   public void testScript() throws Exception {
 	   
 	  
+    Writer currentWriter = new Writer("Mr.", "Robert", "Culliton");
+    LocalHelpers helpers = new LocalHelpers();
+    
+    System.out.println(currentWriter.toString());
+	  
     gatherWriterInfo("WriterInfo");  
 	  
     driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
     
-    delay(2000);
+    helpers.delay(2000);
     
     new Select(driver.findElement(By.id("title"))).selectByVisibleText("Mr.");
     
-    delay(2000);
-    
+    helpers.delay(2000);
     
     driver.findElement(By.id("fname")).clear();
     driver.findElement(By.id("fname")).sendKeys("Robert");
 
-    
-    delay(2000);
+    helpers.delay(2000);
         
     driver.findElement(By.id("lname")).clear();
     driver.findElement(By.id("lname")).sendKeys("Culliton");
     
-    
-    delay(2000);
+    helpers.delay(2000);
     
   }
 
-  
-  
   
   @After
   public void tearDown() throws Exception {
