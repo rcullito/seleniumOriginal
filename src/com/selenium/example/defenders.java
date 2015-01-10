@@ -20,14 +20,12 @@ import com.selenium.example.LocalHelpers;
 
 public class defenders {
   private WebDriver driver;
-  private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
     
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "https://secure.defenders.org/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -39,24 +37,31 @@ public class defenders {
     
     Writer currentWriter = new Writer(currentAuthor);
     
-    driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
+    driver.get(currentWriter.getUrl());
     
     helpers.delay(2000);
     
     new Select(driver.findElement(By.id("title"))).selectByVisibleText(currentWriter.getPrefix());
-    
-    helpers.delay(2000);
-    
     driver.findElement(By.id("fname")).clear();
-    driver.findElement(By.id("fname")).sendKeys(currentWriter.getfirstName());
-
-    helpers.delay(2000);
-        
+    driver.findElement(By.id("fname")).sendKeys(currentWriter.getFirstName());    
     driver.findElement(By.id("lname")).clear();
-    driver.findElement(By.id("lname")).sendKeys(currentWriter.getlastName());
-    
+    driver.findElement(By.id("lname")).sendKeys(currentWriter.getLastName());
+    driver.findElement(By.id("street1")).clear();
+    driver.findElement(By.id("email")).sendKeys(currentWriter.getEmail());
+    driver.findElement(By.id("street1")).clear();
+    driver.findElement(By.id("street1")).sendKeys(currentWriter.getAddress1());
+    driver.findElement(By.id("city")).clear();
+    helpers.delay(8000);
+    driver.findElement(By.id("city")).sendKeys(currentWriter.getCity());
+    new Select(driver.findElement(By.id("state"))).selectByVisibleText(currentWriter.getState());    
+    driver.findElement(By.id("zip")).clear();
+    driver.findElement(By.id("zip")).sendKeys(currentWriter.getZip()); 
+    // need to find a better way around this option
     helpers.delay(2000);
-    
+    new Select(driver.findElement(By.id("1428_34940_5_42561"))).selectByVisibleText(currentWriter.getReceiveMoreInfo());
+    helpers.delay(8000);
+    driver.findElement(By.id("send")).click(); 
+    helpers.delay(2000);
   }
 
   
