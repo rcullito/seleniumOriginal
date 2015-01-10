@@ -2,6 +2,7 @@ package com.selenium.example;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
@@ -22,18 +23,7 @@ public class defenders {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  
-  
-  private void gatherWriterInfo(String fileName) throws Exception {
-		FileReader fr = new FileReader(fileName);
-		BufferedReader br = new BufferedReader(fr);
-		String s;
-		while((s = br.readLine()) != null) {
-		System.out.println(s);
-		}
-		fr.close();
-  }
-  
+    
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -43,30 +33,27 @@ public class defenders {
 
   @Test
   public void testScript() throws Exception {
-	   
-	  
-    Writer currentWriter = new Writer("Mr.", "Robert", "Culliton");
+
     LocalHelpers helpers = new LocalHelpers();
+    ArrayList<String> currentAuthor = helpers.gatherWriterInfo("WriterInfo");  
     
-    System.out.println(currentWriter.toString());
-	  
-    gatherWriterInfo("WriterInfo");  
-	  
+    Writer currentWriter = new Writer(currentAuthor);
+    
     driver.get(baseUrl + "/site/Advocacy?cmd=display&page=UserAction&id=2809");
     
     helpers.delay(2000);
     
-    new Select(driver.findElement(By.id("title"))).selectByVisibleText("Mr.");
+    new Select(driver.findElement(By.id("title"))).selectByVisibleText(currentWriter.getPrefix());
     
     helpers.delay(2000);
     
     driver.findElement(By.id("fname")).clear();
-    driver.findElement(By.id("fname")).sendKeys("Robert");
+    driver.findElement(By.id("fname")).sendKeys(currentWriter.getfirstName());
 
     helpers.delay(2000);
         
     driver.findElement(By.id("lname")).clear();
-    driver.findElement(By.id("lname")).sendKeys("Culliton");
+    driver.findElement(By.id("lname")).sendKeys(currentWriter.getlastName());
     
     helpers.delay(2000);
     
