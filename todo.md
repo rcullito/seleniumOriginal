@@ -1,0 +1,2 @@
+1. store each person's email as a key in Cassandra and their information as the value
+2. we store the writer info in a structured way in Cassandra but the Url and email address is sent via email and dynamically pulled in from some mail protocol, yet to be determined.
