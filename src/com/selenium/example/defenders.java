@@ -15,6 +15,18 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.net.InetAddress; 
+import java.net.UnknownHostException; 
+ 
+import org.slf4j.Logger; 
+import org.slf4j.LoggerFactory;
+
+import com.datastax.driver.core.Cluster; 
+import com.datastax.driver.core.Session; 
+import com.datastax.driver.core.querybuilder.QueryBuilder; 
+
+
+
 import com.selenium.example.Writer;
 import com.selenium.example.LocalHelpers;
 
@@ -22,6 +34,7 @@ public class defenders {
   private WebDriver driver;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  
     
   @Before
   public void setUp() throws Exception {
@@ -32,6 +45,17 @@ public class defenders {
   @Test
   public void testScript() throws Exception {
 
+	  Cluster cluster;
+	  Session session;
+	  
+	// Connect to the cluster and keyspace "demo"
+	  cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
+	  session = cluster.connect("demo");
+	  
+	  session.execute("INSERT INTO users (lastname, age, city, email, firstname) VALUES ('Jones', 35, 'Austin', 'bob@example.com', 'Bob')");
+
+	  
+	  
     LocalHelpers helpers = new LocalHelpers();
     ArrayList<String> currentAuthor = helpers.gatherWriterInfo("WriterInfo");  
     
